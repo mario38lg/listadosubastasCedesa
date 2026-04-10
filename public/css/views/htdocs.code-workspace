@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "../../../../../authsubastas/htdocs"
+		},
+		{
+			"path": "../../.."
+		},
+		{
+			"path": "../../../../../scrapersubastas/htdocs"
+		}
+	],
+	"settings": {}
+}

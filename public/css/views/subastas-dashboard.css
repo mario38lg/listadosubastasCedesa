@@ -1,0 +1,335 @@
+:root {
+            --bg: #0b0b0b;
+            --soft: #151515;
+            --line: #2d2d2d;
+            --text: #f6f6f6;
+        }
+        /* Fuerza el modo oscuro en todo el documento */
+html {
+    background-color: #0b0b0b;
+}
+       body {
+    margin: 0;
+    padding: 20px;
+    font-family: 'Space Grotesk', sans-serif;
+    color: #f6f6f6;
+    /* Usamos el color directo para evitar fallos de carga */
+    background: radial-gradient(circle at 10% 10%, rgba(255,255,255,.08), transparent 30%), #0b0b0b;
+    min-height: 100vh;
+    width: 100%;
+    box-sizing: border-box;
+    display: block;
+}
+
+.wrap {
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0;
+    display: block;
+}
+        .top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+        }
+        .filters-panel {
+            margin-bottom: 16px;
+            padding: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(8px);
+        }
+        .filters-row {
+            display: grid;
+            gap: 16px;
+            align-items: end;
+        }
+        .filters-row-top {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 24px; /* Subimos la separación entre bloques */
+    align-items: end;
+}
+        .filters-row-bottom {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            margin-top: 18px;
+            padding-top: 18px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            min-width: 0;
+        }
+        .filter-group label {
+            font-size: 0.76rem;
+            text-transform: uppercase;
+            color: #94a3b8;
+            letter-spacing: 0.08em;
+        }
+        .filter-group select,
+.filter-group input {
+    width: 100%;
+    min-width: 0;
+    height: 40px; /* Forzamos la altura fija para hacerlos más chicos */
+    padding: 0 12px; /* Quitamos padding vertical porque ya hay altura fija */
+    border-radius: 10px; /* Suavizamos el borde al ser más pequeños */
+    border: 1px solid #3b3b3b;
+    background: #101214;
+    color: #f6f6f6;
+    font-size: 0.9rem; /* Letra un poco más fina */
+    outline: none;
+    box-sizing: border-box; /* Fundamental para que el borde no sume tamaño */
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+        .filter-group select:focus,
+        .filter-group input:focus {
+            border-color: #6b7280;
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.08);
+        }
+        .filter-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px; /* Separamos más los botones entre sí */
+    width: 100%;
+    height: 40px; /* Igualamos a la nueva altura de los inputs */
+    margin-bottom: 0; 
+}
+        .filter-button,
+.filter-reset {
+    width: 100%;
+    height: 100%; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    border-radius: 10px; /* A juego con los inputs */
+    font-size: 0.9rem; /* Reducido para encajar mejor */
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    box-sizing: border-box;
+    border: 1px solid transparent;
+    font-family: inherit;
+    transition: transform 0.15s ease, background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+/* Colores del botón principal (Filtrar) */
+.filter-button {
+    background: #f8fafc;
+    color: #0f172a;
+}
+
+/* Colores Limpiar */
+.filter-reset {
+    background: transparent;
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.18);
+}
+
+.filter-button:hover,
+.filter-reset:hover {
+    transform: translateY(-2px);
+}
+
+.filter-reset:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+        @media (max-width: 1200px) {
+            .filters-row {
+                grid-template-columns: repeat(2, minmax(170px, 1fr));
+            }
+            .filters-row-top,
+            .filters-row-bottom {
+                grid-template-columns: repeat(2, minmax(170px, 1fr));
+            }
+        }
+        @media (max-width: 900px) {
+            .filters-row {
+                grid-template-columns: repeat(2, minmax(170px, 1fr));
+            }
+            .filters-row-top,
+            .filters-row-bottom {
+                grid-template-columns: repeat(2, minmax(170px, 1fr));
+            }
+        }
+        @media (max-width: 640px) {
+            .filters-row {
+                grid-template-columns: 1fr;
+            }
+            .filter-reset {
+                flex: 1;
+                text-align: center;
+            }
+        }
+        h1 { font-family: 'Syne', sans-serif; margin: 0; text-transform: uppercase; }
+        .logout {
+            border: 1px solid #fff;
+            background: transparent;
+            color: #fff;
+            padding: 10px 14px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        .actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .create {
+            border: 1px solid #fff;
+            background: #fff;
+            color: #000;
+            padding: 10px 14px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        .table-wrap {
+    width: 100%;
+    border: 1px solid #3a3a3a;
+    border-radius: 14px;
+    overflow: hidden;
+    background: #151515;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+        .table-scroll {
+            overflow-x: auto;
+        }
+        table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: auto; /* Permite que las celdas se ajusten al contenido */
+}
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #2f2f2f;
+            border-right: 1px solid #242424;
+            text-align: left;
+            font-size: 0.92rem;
+        }
+        th:last-child, td:last-child { border-right: 0; }
+        th {
+            font-weight: 700;
+            color: #d1d5db;
+            background: linear-gradient(180deg, #141414 0%, #101010 100%);
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
+            font-size: 0.78rem;
+        }
+        .sort-link {
+            color: #f8fafc;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 10px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+        }
+        .sort-link:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.12);
+            transform: translateY(-1px);
+            text-decoration: none;
+        }
+        .sort-label {
+            white-space: nowrap;
+        }
+        .sort-indicator {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 1.25rem;
+            height: 1.25rem;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #e5e7eb;
+            font-size: 0.75rem;
+            line-height: 1;
+        }
+        tr:last-child td { border-bottom: 0; }
+        tbody tr:nth-child(odd) {
+            background: rgba(255, 255, 255, 0.01);
+        }
+        tbody tr:nth-child(even) {
+            background: rgba(255, 255, 255, 0.03);
+        }
+        tbody tr:hover {
+            background: rgba(255, 255, 255, 0.06);
+        }
+        .btn-edit, .btn-delete, .btn-view, .btn-note {
+            padding: 8px 10px;
+            border-radius: 8px;
+            border: 1px solid var(--line);
+            text-decoration: none;
+            font-size: 0.85rem;
+            cursor: pointer;
+            font-weight: 600;
+            text-align: center;
+            transition: all 0.2s ease;
+            display: inline-block;
+            min-width: 64px;
+            margin-right: 8px;
+        }
+        .btn-delete { margin-right: 0; }
+        td:last-child {
+            white-space: nowrap;
+        }
+        .btn-view {
+            background: #059669;
+            color: white;
+            border: 1px solid #059669;
+        }
+        .btn-view:hover {
+            background: #047857;
+        }
+        .btn-note {
+    background-color: #f59e0b; /* Naranja plano (Amber 500 de Tailwind) */
+    color: white;
+    border: none; /* Quitamos el borde oscuro para que sea más limpio */
+    padding: 10px 20px; /* Ajusta el relleno a tu gusto */
+    border-radius: 6px;
+    font-weight: 600;
+    transition: background-color 0.2s ease; /* Transición suave */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra muy suave y natural */
+}
+
+.btn-note:hover {
+    background-color: #d97706; /* Un naranja un pelín más oscuro al pasar el ratón */
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+}
+        .btn-edit {
+            background: #1e40af;
+            color: white;
+            border: 1px solid #1e40af;
+        }
+        .btn-edit:hover {
+            background: #1e3a8a;
+        }
+        .btn-delete {
+            background: transparent;
+            color: #ef4444;
+            border: 1px solid #ef4444;
+            width: 72px;
+        }
+        .btn-delete:hover {
+            background: rgba(239, 68, 68, 0.1);
+        }
+        .btn-delete[disabled] {
+            opacity: 0.7;
+            cursor: wait;
+        }
+        .empty {
+            padding: 16px;
+            color: #9ca3af;
+        }

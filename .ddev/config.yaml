@@ -1,0 +1,23 @@
+name: listadosubastas
+type: laravel
+docroot: public
+php_version: "8.3"
+webserver_type: nginx-fpm
+router_http_port: "80"
+router_https_port: "443"
+hooks:
+  post-start:
+    - exec: "composer install --no-interaction"
+    - exec: "[ -f .env ] || cp .env.ddev .env"
+    - exec: "php artisan key:generate --no-interaction 2>/dev/null || true"
+    - exec: "php artisan migrate --no-interaction 2>/dev/null || true"
+database:
+  type: mysql
+  version: "8.0"
+omit_containers: []
+web_environment:
+  - APP_ENV=local
+  - APP_DEBUG=true
+  - SESSION_DRIVER=database
+  - CACHE_STORE=database
+  - QUEUE_CONNECTION=database

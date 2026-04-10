@@ -1,0 +1,153 @@
+:root {
+            --bg: #0b0b0b;
+            --soft: #151515;
+            --line: #2d2d2d;
+            --text: #f6f6f6;
+        }
+        body {
+            margin: 0;
+            font-family: 'Space Grotesk', sans-serif;
+            color: var(--text);
+            background: radial-gradient(circle at 10% 10%, rgba(255,255,255,.08), transparent 30%), var(--bg);
+            min-height: 100vh;
+            padding: 24px;
+        }
+        .wrap { max-width: 700px; margin: 0 auto; }
+        .header {
+            margin-bottom: 24px;
+        }
+        .top-actions {
+            margin-bottom: 14px;
+        }
+        .scraper-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 14px;
+            border-radius: 8px;
+            border: 1px solid var(--line);
+            background: transparent;
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+        .scraper-link:hover {
+            background: var(--line);
+        }
+        h1 {
+            font-family: 'Syne', sans-serif;
+            margin: 0 0 8px;
+            text-transform: uppercase;
+            font-size: 1.8rem;
+        }
+        .subtitle {
+            font-size: 0.85rem;
+            color: #999;
+        }
+        .form {
+            background: var(--soft);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 24px;
+        }
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-bottom: 14px;
+        }
+        .form-grid.full {
+            grid-template-columns: 1fr;
+        }
+        .field {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: #ccc;
+        }
+        input, select, textarea {
+            background: var(--bg);
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            padding: 10px 12px;
+            color: var(--text);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #fff;
+            background: rgba(255,255,255,0.05);
+        }
+        textarea {
+            resize: vertical;
+            min-height: 60px;
+        }
+        .error {
+            color: #ef4444;
+            font-size: 0.75rem;
+            margin-top: 4px;
+        }
+        .section-title {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #666;
+            font-weight: 700;
+            margin-top: 16px;
+            margin-bottom: 10px;
+            padding-top: 12px;
+            border-top: 1px solid var(--line);
+        }
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            padding-top: 14px;
+            border-top: 1px solid var(--line);
+        }
+        button, .back-btn {
+            flex: 1;
+            padding: 11px 14px;
+            border-radius: 8px;
+            border: 1px solid var(--line);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.9rem;
+        }
+        button {
+            background: #fff;
+            color: #000;
+        }
+        button:hover {
+            background: #f0f0f0;
+        }
+        .back-btn {
+            background: transparent;
+            color: var(--text);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .back-btn:hover {
+            background: var(--line);
+        }
+        .success {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid #10b981;
+            color: #10b981;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 14px;
+            font-size: 0.85rem;
+        }

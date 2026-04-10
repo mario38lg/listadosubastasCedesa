@@ -1,0 +1,96 @@
+# ============================================
+# listadosubastas - Stack para Portainer
+# ============================================
+# Requisitos:
+# - Base de datos MySQL en AWS (RDS) - NO incluir en el stack
+# - Traefik como reverse proxy externo (network: traefik_public)
+#
+# Variables de entorno a configurar en Portainer:
+# - APP_KEY, APP_URL, DB_HOST, DB_DATABASE, DB_USERNAME, DB_PASSWORD
+# - AWS_BUCKET, AWS_DEFAULT_REGION
+# - MAIL_*, TRAEFIK_HOST y otras segun necesidad
+
+services:
+  # ============================================
+  # Laravel App (PHP-FPM + Nginx + Scheduler)
+  # Con Rolling Updates para actualizaciones sin downtime
+  # ============================================
+  app:
+    image: registry.gitlab.com/cedesa/listado_subastas_practica:${APP_VERSION:-latest}
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 1
+        order: start-first
+        failure_action: rollback
+        delay: 10s
+        monitor: 20s
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+      labels:
+        # Traefik routing
+        - "traefik.enable=true"
+        - "traefik.http.routers.listadosubastas.rule=Host(`${TRAEFIK_HOST}`)"
+        - "traefik.http.routers.listadosubastas.entrypoints=websecure"
+        - "traefik.http.routers.listadosubastas.tls=true"
+        - "traefik.http.routers.listadosubastas.tls.certresolver=httpresolver"
+        - "traefik.http.services.listadosubastas.loadbalancer.server.port=80"
+        # Redirect HTTP -> HTTPS
+        - "traefik.http.routers.listadosubastas-http.rule=Host(`${TRAEFIK_HOST}`)"
+        - "traefik.http.routers.listadosubastas-http.entrypoints=web"
+        - "traefik.http.routers.listadosubastas-http.middlewares=redirect-to-https"
+        - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
+        - "traefik.http.middlewares.redirect-to-https.redirectscheme.permanent=true"
+    networks:
+      - app_network
+      - traefik_new
+    environment:
+      - APP_NAME=${APP_NAME:-ListadoSubastas}
+      - APP_ENV=${APP_ENV:-production}
+      - APP_KEY=${APP_KEY}
+      - APP_DEBUG=${APP_DEBUG:-false}
+      - APP_URL=${APP_URL}
+      # Database (AWS RDS - externa al stack)
+      - DB_CONNECTION=mysql
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT:-3306}
+      - DB_DATABASE=${DB_DATABASE}
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - CACHE_STORE=file
+      - SESSION_DRIVER=file
+      - QUEUE_CONNECTION=sync
+      # S3 Configuration
+      - AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION:-eu-central-1}
+      - AWS_BUCKET=${AWS_BUCKET}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - AWS_USE_PATH_STYLE_ENDPOINT=${AWS_USE_PATH_STYLE_ENDPOINT:-false}
+      - FILESYSTEM_DISK=${FILESYSTEM_DISK:-s3}
+      # Auth bridge URLs
+      - AUTH_LOGIN_URL=${AUTH_LOGIN_URL}
+      - AUTH_REGISTER_URL=${AUTH_REGISTER_URL}
+      # Mail
+      - MAIL_MAILER=${MAIL_MAILER:-smtp}
+      - MAIL_HOST=${MAIL_HOST}
+      - MAIL_PORT=${MAIL_PORT:-587}
+      - MAIL_USERNAME=${MAIL_USERNAME}
+      - MAIL_PASSWORD=${MAIL_PASSWORD}
+      - MAIL_ENCRYPTION=${MAIL_ENCRYPTION:-tls}
+      - MAIL_FROM_ADDRESS=${MAIL_FROM_ADDRESS}
+      - MAIL_FROM_NAME=${MAIL_FROM_NAME:-ListadoSubastas}
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+networks:
+  app_network:
+    driver: overlay
+    attachable: true
+  traefik_new:
+    external: true
