@@ -273,6 +273,10 @@ class WebSubastasController extends Controller
     {
         $this->intentarLoginDesdeAuth(request());
 
+        if (request('import_created') === '1') {
+            request()->session()->put('import_created', '1');
+        }
+
         if (! Auth::check()) {
             abort(403, 'Debes iniciar sesion.');
         }

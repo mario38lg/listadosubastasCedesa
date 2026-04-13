@@ -199,7 +199,11 @@ html {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
 }
 .import-success-message {
-    margin: 14px 4px 0;
+    margin: 14px 0 18px;
+    padding: 12px 14px;
+    border: 1px solid rgba(134, 239, 172, 0.35);
+    border-radius: 12px;
+    background: rgba(134, 239, 172, 0.08);
     color: #86efac;
     font-size: 0.94rem;
     font-weight: 600;
