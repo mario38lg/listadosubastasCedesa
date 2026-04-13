@@ -24,6 +24,9 @@ Homestead.json
 Homestead.yaml
 Thumbs.db
 
+# Script de sincronizacion
+/sync.sh
+
 # DDEV
 /.ddev/import-db
 /.ddev/.gitignore
