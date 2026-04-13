@@ -72,7 +72,7 @@ services:
       # Auth bridge URLs
       - AUTH_LOGIN_URL=${AUTH_LOGIN_URL}
       - AUTH_REGISTER_URL=${AUTH_REGISTER_URL}
-      # Scraper ingest secret
+      # Scraper
       - SCRAPER_INGEST_SECRET=${SCRAPER_INGEST_SECRET}
       # Mail
       - MAIL_MAILER=${MAIL_MAILER:-smtp}
