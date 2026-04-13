@@ -446,7 +446,9 @@ class WebSubastasController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->away('https://media.vegetal-listado.cedesa.es/login');
+        $urlLogin = (string) env('AUTH_LOGIN_URL', 'https://media-vegetal-auth.cedesa.es/login');
+
+        return redirect()->away($urlLogin);
     }
 
     // Este metodo genera un identificador unico tipo SUB-XXXXXXX.

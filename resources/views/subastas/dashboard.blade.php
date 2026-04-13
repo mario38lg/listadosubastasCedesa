@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="{{ asset('css/views/subastas-dashboard.css') }}?v=11">
+        <link rel="stylesheet" href="{{ asset('css/views/subastas-dashboard.css') }}?v=12">
 </head>
 <body>
     @php
@@ -17,6 +17,7 @@
         $ordenClasificacion = request('orden_clasificacion', '');
         $ordenFechaConclusion = request('orden_fecha_conclusion', 'desc');
         $ordenValorTasacion = request('orden_valor_tasacion', '');
+        $importCreado = request('import_created') === '1';
     @endphp
     <div class="wrap">
         <div class="top">
@@ -139,6 +140,10 @@
                 </div>
             @endif
         </section>
+
+        @if ($importCreado)
+            <p class="import-success-message">Se creó correctamente la subasta.</p>
+        @endif
     </div>
 
         <script src="{{ asset('js/views/subastas-dashboard.js') }}" defer></script>

@@ -198,6 +198,13 @@ html {
     background: #151515;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
 }
+.import-success-message {
+    margin: 14px 4px 0;
+    color: #86efac;
+    font-size: 0.94rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+}
         .table-scroll {
             overflow-x: auto;
         }
